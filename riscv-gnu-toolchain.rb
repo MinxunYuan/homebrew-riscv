@@ -57,11 +57,11 @@ class RiscvGnuToolchain < Formula
     system "git", "submodule", "update", "--depth", "1", "--init", "--recursive", "newlib"
     system "git", "submodule", "update", "--depth", "1", "--init", "--recursive", "binutils"
     system "git", "submodule", "update", "--depth", "1", "--init", "--recursive", "gcc"
+    system "git", "submodule", "update", "--depth", "1", "--init", "--recursive", "gdb"
 
     args = [
       "--prefix=#{prefix}",
-      "--with-cmodel=medany",
-      "--disable-gdb"
+      "--with-cmodel=medany"
     ]
     args << "--enable-multilib" unless build.with?("NOmultilib")
 
@@ -75,10 +75,10 @@ class RiscvGnuToolchain < Formula
     system "gmake"
 
     # don't install gdb bindings if system already has them
-    if File.exist?("#{HOMEBREW_PREFIX}/share/gdb")
-      opoo "Not overwriting share/gdb"
-      rm_rf "#{share}/gdb"
-    end
+    # if File.exist?("#{HOMEBREW_PREFIX}/share/gdb")
+    #   opoo "Not overwriting share/gdb"
+    #   rm_rf "#{share}/gdb"
+    # end
     
     # don't install info if system already has them
     if File.exist?("#{HOMEBREW_PREFIX}/share/info")
@@ -87,10 +87,10 @@ class RiscvGnuToolchain < Formula
     end
 
     # don't install gdb includes if system already has them
-    if File.exist?("#{HOMEBREW_PREFIX}/include/gdb")
-      opoo "Not overwriting include/gdb"
-      rm_rf "#{include}/gdb"
-    end
+    # if File.exist?("#{HOMEBREW_PREFIX}/include/gdb")
+    #   opoo "Not overwriting include/gdb"
+    #   rm_rf "#{include}/gdb"
+    # end
   end
 
   test do
